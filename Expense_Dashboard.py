@@ -489,51 +489,52 @@ if uploaded_file is not None:
 
         if selected_cost_YTD == "Variable Cost":
             #######################----------------------------------------------#####################################
-            data_L2 = {
+            data_L22 = {
                 "Variable Cost Spent": [
                     Jan_2025_filtered_Variable["Main"].sum(),
-                    Feb_2025_filtered_Fixed["Main"].sum(),
+                    Feb_2025_filtered_Variable["Main"].sum(),
+                    Mar_2025_filtered_Variable["Main"].sum(),
                 ],
                 "Variable Cost Budget": [
                     Jan_2025_filtered_Variable["1st Comparison"].sum(),
-                    Feb_2025_filtered_Fixed["1st Comparison"].sum(),
+                    Feb_2025_filtered_Variable["1st Comparison"].sum(),
+                    Mar_2025_filtered_Variable["1st Comparison"].sum(),
                 ],
-                "Month": ["January", "Feburary"],
-            }
+                "Month": ["January", "Feburary","March"]}
 
-            colsss1, colsss2 = st.columns([0.45, 0.55], border=True)
+            colsss1, colsss2 = st.columns(2)
             with colsss1:
-                st.subheader("Variable Cost Analysis (Year To Date)")
+                st.header("Variable Cost Analysis (Year To Date)")
             with colsss2:
-                st.subheader("Variable Cost Analysis Trend by Month (Year To Date)")
+                st.header("Variable Cost Analysis Trend by Month (Year To Date)")
 
-            colx1, colx2 = st.columns([0.45, 0.55], border=True)
-            with colx1:
-                with st.container(height=500, border=False):
-                    cols1, cols2, cols3 = st.columns((3), vertical_alignment="center")
-                    with cols1:
-                        st.metric(
-                            value=f"£{Variable_cost_YTD_Budget:,.2f}",
-                            label="Variable Cost Year To Date Budget",
-                            border=True,
-                        )
-                    with cols2:
-                        st.metric(
-                            value=f"£{Variable_cost_YTD_spent:,.2f}",
-                            label="Variable Cost Year To Date Spent",
-                            border=True,
-                        )
-                    with cols3:
-                        st.metric(
-                            value=f"£{Variable_cost_YTD_Delta:,.2f}",
-                            label="Variable Cost Year To Date Delta",
-                            border=True,
-                            delta=f"{Variable_Cost_YTD_Delta_Percent:.2f}%",
-                        )
-            with colx2:
-                with st.container(height=500, border=False):
+            with st.container(height=500, border=False):
+                cols1, cols2, cols3, cols4 = st.columns(
+                    [0.15, 0.15, 0.15, 0.55], vertical_alignment="center"
+                )
+
+                with cols1:
+                    st.metric(
+                        value=f"£{Variable_cost_YTD_Budget:,.2f}",
+                        label="Variable Cost Year To Date Budget",
+                        border=True,
+                    )
+                with cols2:
+                    st.metric(
+                        value=f"£{Variable_cost_YTD_spent:,.2f}",
+                        label="Variable Cost Year To Date Spent",
+                        border=True,
+                    )
+                with cols3:
+                    st.metric(
+                        value=f"£{Variable_cost_YTD_Delta:,.2f}",
+                        label="Variable Cost Year To Date Delta",
+                        border=True,
+                        delta=f"{Variable_Cost_YTD_Delta_Percent:.2f}%",
+                    )
+                with cols4:
                     fig = px.line(
-                        data_L2,
+                        data_L22,
                         x="Month",
                         y=["Variable Cost Spent", "Variable Cost Budget"],
                         title="Budget vs. Spent Over Months",
@@ -549,17 +550,17 @@ if uploaded_file is not None:
 
             clswe11, colswe12 = st.columns(2)
             with clswe11:
-                with st.container(height=500):
+                with st.container(height=500, border=False):
                     # User filter input
                     selected_category_Order_L2 = st.selectbox(
                         "Filter by Order:",
                         ["All"] + list(combined_L2_Variable["Order"].unique()),
-                        key="FIlt44646rgrgrder",
+                        key="FI5656dby Order",
                     )
-
                     filtered_df = L2_Filtered_data(
                         selected_category_Order_L2, combined_L2_Variable
                     )
+
                     coli1, coli2, coli3 = st.columns(
                         3, border=True, vertical_alignment="center"
                     )
@@ -582,11 +583,10 @@ if uploaded_file is not None:
                     Dataframes_ranked(filtered_df,"Order")
 
             with colswe12:
-                with st.container(height=500):
+                with st.container(height=500, border=False):
                     fig = Levels_BarChart(filtered_df,'Order')
-                    # Display the chart in Streamlit
                     st.subheader("Cost by Order Bar Chart")
-                    st.plotly_chart(fig, key="57843wewew")
+                    st.plotly_chart(fig, key="45hgfhe")
 
             col31, col32 = st.columns(2, gap="medium", vertical_alignment="center")
             new_data_454 = combined_L3_Variable[
@@ -600,12 +600,12 @@ if uploaded_file is not None:
                 }
             )
             with col31:
-                with st.container(height=500):
+                with st.container(height=500, border=False):
                     # User filter input
                     selected_category_L3 = st.selectbox(
                         "Filter by Level 3:",
                         ["All"] + list(new_data_454["L3"].unique()),
-                        key="v,cpwdmv",
+                        key="lvllv",
                     )
                     filtered_df = L3_YTD_Filtered(
                         selected_category_L3,
@@ -631,14 +631,14 @@ if uploaded_file is not None:
                             value=f"£{filtered_df['Total Difference'].sum():,.2f}",
                             delta=f"{(((filtered_df['Total Budget'].sum()) - (filtered_df['Total Main'].sum()))/(filtered_df['Total Budget'].sum()))*100:.2f}%",
                         )
-                    Dataframes_ranked(filtered_df,'L3')
+                    Dataframes_ranked(filtered_df,"L3")
 
             with col32:
-                with st.container(height=500):
+                with st.container(height=500, border=False):
                     fig = Levels_BarChart(filtered_df,'L3')
                     # Display the chart in Streamlit
                     st.subheader("Cost by L3 Bar Chart")
-                    st.plotly_chart(fig, key="dfbv53wewew")
+                    st.plotly_chart(fig, key="kfmmfem")
 
             col41, col42 = st.columns(2, gap="medium", vertical_alignment="center")
             new_data_4154 = combined_L4_Variable[
@@ -652,14 +652,19 @@ if uploaded_file is not None:
                 }
             )
             with col41:
-                with st.container(height=500):
+                with st.container(height=500, border=False):
                     # User filter input
                     selected_category_L4 = st.selectbox(
                         "Filter by Level 4:",
                         ["All"] + list(new_data_4154["L4"].unique()),
-                        key="dfmekfmkefe",
+                        key="gggnneejmfedf",
                     )
-                    filtered_df = L4_YTD_Filtered(selected_category_L4,selected_category_L3,selected_category_Order_L2,combined_L4_Variable)
+                    filtered_df = L4_YTD_Filtered(
+                        selected_category_L4,
+                        selected_category_L3,
+                        selected_category_Order_L2,
+                        combined_L4_Variable
+                    )
                     coli31, coli32, coli33 = st.columns(
                         3, border=True, vertical_alignment="center"
                     )
@@ -679,15 +684,14 @@ if uploaded_file is not None:
                             value=f"£{filtered_df['Total Difference'].sum():,.2f}",
                             delta=f"{(((filtered_df['Total Budget'].sum()) - (filtered_df['Total Main'].sum()))/(filtered_df['Total Budget'].sum()))*100:.2f}%",
                         )
-                    Dataframes_ranked(filtered_df,'L4')
+                    Dataframes_ranked(filtered_df,"L4")
 
             with col42:
-                with st.container(height=500):
+                with st.container(height=500, border=False):
                     fig = Levels_BarChart(filtered_df,'L4')
                     # Display the chart in Streamlit
                     st.subheader("Cost by L4 Bar Chart")
-                    st.plotly_chart(fig, key="efefppefe")
-
+                    st.plotly_chart(fig, key="efeef22efrvbg")
             col51, col52 = st.columns(2, gap="medium", vertical_alignment="center")
             new_data_41154 = combined_L5_Variable[
                 combined_L5_Variable["L4"] == selected_category_L4
@@ -700,13 +704,13 @@ if uploaded_file is not None:
                 }
             )
             with col51:
-                with st.container(height=500):
+                with st.container(height=500, border=False):
                     # User filter input
                     selected_category_L5 = st.selectbox(
                         "Filter by Account:",
                         ["All"]
                         + list(new_data_41154["AccountAndDescpription"].unique()),
-                        key="f3ef3efff44523",
+                        key="4r34rf34rf44gtrfghtertger",
                     )
                     filtered_df = L5_YTD_Filtered(selected_category_Order_L2,selected_category_L3,selected_category_L4,selected_category_L5,combined_L5_Variable)
                     coli31, coli32, coli33 = st.columns(
@@ -731,11 +735,11 @@ if uploaded_file is not None:
                     Dataframes_ranked(filtered_df,'AccountAndDescpription')
 
             with col52:
-                with st.container(height=500):
+                with st.container(height=500, border=False):
                     fig = Levels_BarChart(filtered_df,'AccountAndDescpription')
                     # Display the chart in Streamlit
                     st.subheader("Cost by Account Bar Chart")
-                    st.plotly_chart(fig, key="43525343wewew")
+                    st.plotly_chart(fig, key="435253wewew")
     with tab_3:
         st.info(
             "This feature will be launched in future version of this dashboard. Dashboard is designed by @aakalkri for Amazon LCY3 Reliability and Maintenance Engineering Automations Engineering Team under supervision of @didymiod and @sherress.",
