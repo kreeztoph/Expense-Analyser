@@ -109,7 +109,7 @@ def March_2025_Variable(data):
             value=f"£{data_Delta:,.2f}",
             border=True,
             delta=f"{data_delta_percent:,.2f} %",
-            help="This is the difference in the amount budgeted and the amount spent for dataauary.",
+            help="This is the difference in the amount budgeted and the amount spent for March.",
         )
     with col4:
         st.metric(
@@ -123,7 +123,7 @@ def March_2025_Variable(data):
             "March Variable Cost Spent",
             value=f"£{data_Variable_Spent:,.2f}",
             border=True,
-            help="This is the total amount spent for Variable Cost in dataauary.",
+            help="This is the total amount spent for Variable Cost in March.",
         )
     with col6:
         st.metric(
@@ -300,10 +300,17 @@ def March_2025_Variable(data):
                     label="Spent", value=f"£{filtered_df['Spent'].sum():,.2f}"
                 )
             with coli33:
+                budget_sum = filtered_df['Budget'].sum()
+                main_sum = filtered_df['Spent'].sum()
+                if pd.notna(budget_sum) and budget_sum != 0:
+                    delta_value = ((budget_sum - main_sum) / budget_sum) * 100
+                    delta = f"{delta_value:.2f}%"
+                else:
+                    delta = 0
                 st.metric(
                     label="Delta",
                     value=f"£{filtered_df['Delta'].sum():,.2f}",
-                    delta=f"{(((filtered_df['Budget'].sum()) - (filtered_df['Spent'].sum()))/(filtered_df['Budget'].sum()))*100:.2f}%",
+                    delta=delta,
                 )
             # Apply styling to the 'Order' column based on 'Delta'
             if "Delta" in filtered_df.columns:
@@ -417,10 +424,17 @@ def March_2025_Variable(data):
                     label="Spent", value=f"£{filtered_df['Spent'].sum():,.2f}"
                 )
             with coli33:
+                budget_sum = filtered_df['Budget'].sum()
+                main_sum = filtered_df['Spent'].sum()
+                if pd.notna(budget_sum) and budget_sum != 0:
+                    delta_value = ((budget_sum - main_sum) / budget_sum) * 100
+                    delta = f"{delta_value:.2f}%"
+                else:
+                    delta = 0
                 st.metric(
                     label="Delta",
                     value=f"£{filtered_df['Delta'].sum():,.2f}",
-                    delta=f"{(((filtered_df['Budget'].sum()) - (filtered_df['Spent'].sum()))/(filtered_df['Budget'].sum()))*100:.2f}%",
+                    delta=delta,
                 )
             # Apply styling to the 'Order' column based on 'Delta'
             if "Delta" in filtered_df.columns:
@@ -540,10 +554,17 @@ def March_2025_Variable(data):
                     label="Spent", value=f"£{filtered_df['Spent'].sum():,.2f}"
                 )
             with coli33:
+                budget_sum = filtered_df['Budget'].sum()
+                main_sum = filtered_df['Spent'].sum()
+                if pd.notna(budget_sum) and budget_sum != 0:
+                    delta_value = ((budget_sum - main_sum) / budget_sum) * 100
+                    delta = f"{delta_value:.2f}%"
+                else:
+                    delta = 0
                 st.metric(
                     label="Delta",
                     value=f"£{filtered_df['Delta'].sum():,.2f}",
-                    delta=f"{(((filtered_df['Budget'].sum()) - (filtered_df['Spent'].sum()))/(filtered_df['Budget'].sum()))*100:.2f}%",
+                    delta=delta,
                 )
             # Apply styling to the 'Order' column based on 'Delta'
             if "Delta" in filtered_df.columns:

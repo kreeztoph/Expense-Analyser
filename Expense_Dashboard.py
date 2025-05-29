@@ -15,12 +15,37 @@ from Level_data.YTD_L2 import YTD_L2
 from Level_data.YTD_L3 import YTD_L3
 from Level_data.YTD_L4 import YTD_L4
 from Level_data.YTD_L5 import YTD_L5
+from Months.December_2024_Fixed import December_2024_Fixed
+from Months.December_2024_Variable import December_2024_Variable
 from Months.January_2025_Fixed import January_2025_Fixed
 from Months.January_2025_Variable import January_2025_Variable
 from Months.February_2025_Fixed import February_2025_Fixed
 from Months.February_2025_Variable import February_2025_Variable
 from Months.March_2025_Fixed import March_2025_Fixed
 from Months.March_2025_Variable import March_2025_Variable
+from Months.April_2025_Fixed import April_2025_Fixed
+from Months.April_2025_Variable import April_2025_Variable
+from Months.May_2025_Fixed import May_2025_Fixed
+from Months.May_2025_Variable import May_2025_Variable
+from Months.June_2025_Fixed import June_2025_Fixed
+from Months.June_2025_Variable import June_2025_Variable
+from Months.July_2025_Fixed import July_2025_Fixed
+from Months.July_2025_Variable import July_2025_Variable
+from Months.August_2025_Fixed import August_2025_Fixed
+from Months.August_2025_Variable import August_2025_Variable
+from Months.November_2024_Variable import November_2024_Variable
+from Months.October_2024_Fixed import October_2024_Fixed
+from Months.October_2024_Variable import October_2024_Variable
+from Months.September_2024_Fixed import September_2024_Fixed
+from Months.September_2024_Variable import September_2024_Variable
+from Months.September_2025_Fixed import September_2025_Fixed
+from Months.September_2025_Variable import September_2025_Variable
+from Months.October_2025_Fixed import October_2025_Fixed
+from Months.October_2025_Variable import October_2025_Variable
+from Months.November_2025_Fixed import November_2024_Fixed
+from Months.November_2025_Variable import November_2025_Variable
+from Months.December_2025_Fixed import December_2025_Fixed
+from Months.December_2025_Variable import December_2025_Variable
 from Functions.YTD_KPI import YTD_KPI
 from Functions.filtered_cost import filtered_months_data
 from Functions.YTD_Barchart import YTD_Barchart
@@ -70,7 +95,6 @@ with st.expander(label="Click here to open upload tab!"):
         uploaded_file = st.file_uploader("Upload an Excel File", type="xlsx")
 
 
-
 if uploaded_file is not None:
     # Load the uploaded Excel file
     try:
@@ -89,11 +113,58 @@ if uploaded_file is not None:
         st.error(f"An error occurred while loading the Excel file: {e}")
 
     ####=============Month========###############
+    Sep_2024 = sheets.get("Sep_2024")
+    Oct_2024 = sheets.get("Oct_2024")
+    Nov_2024 = sheets.get("Nov_2024")
+    Dec_2024 = sheets.get("Dec_2024")
     Jan_2025 = sheets.get("Jan_2025")
     Feb_2025 = sheets.get("Feb_2025")
     Mar_2025 = sheets.get("Mar_2025")
+    Apr_2025 = sheets.get("Apr_2025")
+    May_2025 = sheets.get("May_2025")
+    Jun_2025 = sheets.get("Jun_2025")
+    Jul_2025 = sheets.get("Jul_2025")
+    Aug_2025 = sheets.get("Aug_2025")
+    Sep_2025 = sheets.get("Sep_2025")
+    Oct_2025 = sheets.get("Oct_2025")
+    Nov_2025 = sheets.get("Nov_2025")
+    Dec_2025 = sheets.get("Dec_2025")
 
-    Jan_2025, Feb_2025, Mar_2025 = months_convert(Jan_2025, Feb_2025, Mar_2025)
+    (
+        Sep_2024,
+        Oct_2024,
+        Nov_2024,
+        Dec_2024,
+        Jan_2025,
+        Feb_2025,
+        Mar_2025,
+        Apr_2025,
+        May_2025,
+        Jun_2025,
+        Jul_2025,
+        Aug_2025,
+        Sep_2025,
+        Oct_2025,
+        Nov_2025,
+        Dec_2025,
+    ) = months_convert(
+        Sep_2024,
+        Oct_2024,
+        Nov_2024,
+        Dec_2024,
+        Jan_2025,
+        Feb_2025,
+        Mar_2025,
+        Apr_2025,
+        May_2025,
+        Jun_2025,
+        Jul_2025,
+        Aug_2025,
+        Sep_2025,
+        Oct_2025,
+        Nov_2025,
+        Dec_2025,
+    )
     tab_1, tab_2, tab_3 = st.tabs(
         ["Monthly Analysis", "Yearly Analysis", "Comparative Analysis"]
     )
@@ -114,25 +185,98 @@ if uploaded_file is not None:
         col_1, col_2, col_3 = st.columns(3)
         with col_1:
             month = st.selectbox(
-                label="Select a Month", options=["January", "February", "March"]
+                label="Select a Month",
+                options=[
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                ],
             )
         with col_2:
-            year = st.selectbox(label="Select Year", options=["2025", "2026"])
+            year = st.selectbox(label="Select Year", options=["2024", "2025", "2026"])
         with col_3:
             data = st.selectbox(
                 label="Select Cost", options=["Fixed Costs", "Variable Costs"]
             )
-        if (month == "January") & (year == "2025") & (data == "Fixed Costs"):
-            January_2025_Fixed(Jan_2025)
+        if (month == "September") & (year == "2024") & (data == "Fixed Costs"):
+            if Sep_2024.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                September_2024_Fixed(Sep_2024)
+
+        elif (month == "September") & (year == "2024") & (data == "Variable Costs"):
+            if Sep_2024.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                September_2024_Variable(Sep_2024)
+
+        elif (month == "October") & (year == "2024") & (data == "Fixed Costs"):
+            if Oct_2024.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                October_2024_Fixed(Oct_2024)
+
+        elif (month == "October") & (year == "2024") & (data == "Variable Costs"):
+            if Oct_2024.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                October_2024_Variable(Oct_2024)
+
+        elif (month == "November") & (year == "2024") & (data == "Fixed Costs"):
+            if Nov_2024.empty:
+                st.info("No data available fot this month.")
+            else:
+                November_2024_Fixed(Nov_2024)
+
+        elif (month == "November") & (year == "2024") & (data == "Variable Costs"):
+            if Nov_2024.empty:
+                st.info("No data available for this month.")
+            else:
+                November_2024_Variable(Nov_2024)
+
+        elif (month == "December") & (year == "2024") & (data == "Fixed Costs"):
+            if Dec_2024.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                December_2024_Fixed(Dec_2024)
+
+        elif (month == "December") & (year == "2024") & (data == "Variable Costs"):
+            if Dec_2024.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                December_2024_Variable(Dec_2024)
+        elif (month == "January") & (year == "2025") & (data == "Fixed Costs"):
+            if Jan_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                January_2025_Fixed(Jan_2025)
 
         elif (month == "January") & (year == "2025") & (data == "Variable Costs"):
-            January_2025_Variable(Jan_2025)
+            if Jan_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                January_2025_Variable(Jan_2025)
 
         elif (month == "February") & (year == "2025") & (data == "Fixed Costs"):
-            February_2025_Fixed(Feb_2025)
+            if Feb_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                February_2025_Fixed(Feb_2025)
 
         elif (month == "February") & (year == "2025") & (data == "Variable Costs"):
-            February_2025_Variable(Feb_2025)
+            if Feb_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                February_2025_Variable(Feb_2025)
 
         elif (month == "March") & (year == "2025") & (data == "Fixed Costs"):
             if Mar_2025.empty:
@@ -145,6 +289,21 @@ if uploaded_file is not None:
                 st.info("No data available for this month.")
             else:
                 March_2025_Variable(Mar_2025)
+
+        elif (month == "April") & (year == "2025") & (data == "Fixed Costs"):
+            if Apr_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                April_2025_Fixed(Apr_2025)
+
+        elif (month == "April") & (year == "2025") & (data == "Variable Costs"):
+            if Apr_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                April_2025_Variable(Apr_2025)
+        else:
+            st.info("No data for the month selected")
+
     with tab_2:
         (
             Year_To_Date_Total_Spent,
@@ -152,7 +311,20 @@ if uploaded_file is not None:
             Year_To_Date_Total_Delta,
             delta,
             data,
-        ) = YTD_KPI(Jan_2025,Feb_2025,Mar_2025)
+        ) = YTD_KPI(
+            Jan_2025,
+            Feb_2025,
+            Mar_2025,
+            Apr_2025,
+            May_2025,
+            Jun_2025,
+            Jul_2025,
+            Aug_2025,
+            Sep_2025,
+            Oct_2025,
+            Nov_2025,
+            Dec_2025,
+        )
         cols1, cols2, cols3 = st.columns(3, vertical_alignment="center", border=True)
         with cols1:
             st.metric(
@@ -183,7 +355,21 @@ if uploaded_file is not None:
         with cols23:
             # Display chart in Streamlit
             st.plotly_chart(
-                YTD_SunBurst(Jan_2025, Feb_2025, Mar_2025), use_container_width=True
+                YTD_SunBurst(
+                    Jan_2025,
+                    Feb_2025,
+                    Mar_2025,
+                    Apr_2025,
+                    May_2025,
+                    Jun_2025,
+                    Jul_2025,
+                    Aug_2025,
+                    Sep_2025,
+                    Oct_2025,
+                    Nov_2025,
+                    Dec_2025,
+                ),
+                use_container_width=True,
             )
         (
             Fixed_cost_YTD_spent,
@@ -194,33 +380,107 @@ if uploaded_file is not None:
             Variable_cost_YTD_Budget,
             Variable_cost_YTD_Delta,
             Variable_Cost_YTD_Delta_Percent,
-        ) = YTD_Cost(Jan_2025, Feb_2025, Mar_2025)
+        ) = YTD_Cost(
+            Jan_2025,
+            Feb_2025,
+            Mar_2025,
+            Apr_2025,
+            May_2025,
+            Jun_2025,
+            Jul_2025,
+            Aug_2025,
+            Sep_2025,
+            Oct_2025,
+            Nov_2025,
+            Dec_2025,
+        )
 
         # This section handles the summation of data and uses a similar logic to the monthly view page
-        filtered_result = filtered_months_data(Jan_2025, Feb_2025, Mar_2025)
-
+        filtered_result = filtered_months_data(
+            Jan_2025,
+            Feb_2025,
+            Mar_2025,
+            Apr_2025,
+            May_2025,
+            Jun_2025,
+            Jul_2025,
+            Aug_2025,
+            Sep_2025,
+            Oct_2025,
+            Nov_2025,
+            Dec_2025,
+        )
         # Access filtered Fixed Costs and Variable Costs
         filtered_fixed_costs = filtered_result["Fixed Costs"]
         filtered_variable_costs = filtered_result["Variable Costs"]
-        Jan_2025_filtered_Fixed, Feb_2025_filtered_Fixed, Mar_2025_filtered_Fixed = (
+        (
+            Jan_2025_filtered_Fixed,
+            Feb_2025_filtered_Fixed,
+            Mar_2025_filtered_Fixed,
+            Apr_2025_filtered_Fixed,
+            May_2025_filtered_Fixed,
+            Jun_2025_filtered_Fixed,
+            Jul_2025_filtered_Fixed,
+            Aug_2025_filtered_Fixed,
+            Sep_2025_filtered_Fixed,
+            Oct_2025_filtered_Fixed,
+            Nov_2025_filtered_Fixed,
+            Dec_2025_filtered_Fixed,
+        ) = (
             filtered_fixed_costs[0],
             filtered_fixed_costs[1],
             filtered_fixed_costs[2],
+            filtered_fixed_costs[3],
+            filtered_fixed_costs[4],
+            filtered_fixed_costs[5],
+            filtered_fixed_costs[6],
+            filtered_fixed_costs[7],
+            filtered_fixed_costs[8],
+            filtered_fixed_costs[9],
+            filtered_fixed_costs[10],
+            filtered_fixed_costs[11],
         )
         (
             Jan_2025_filtered_Variable,
             Feb_2025_filtered_Variable,
             Mar_2025_filtered_Variable,
+            Apr_2025_filtered_Variable,
+            May_2025_filtered_Variable,
+            Jun_2025_filtered_Variable,
+            Jul_2025_filtered_Variable,
+            Aug_2025_filtered_Variable,
+            Sep_2025_filtered_Variable,
+            Oct_2025_filtered_Variable,
+            Nov_2025_filtered_Variable,
+            Dec_2025_filtered_Variable,
         ) = (
             filtered_variable_costs[0],
             filtered_variable_costs[1],
             filtered_variable_costs[2],
+            filtered_variable_costs[3],
+            filtered_variable_costs[4],
+            filtered_variable_costs[5],
+            filtered_variable_costs[6],
+            filtered_variable_costs[7],
+            filtered_variable_costs[8],
+            filtered_variable_costs[9],
+            filtered_variable_costs[10],
+            filtered_variable_costs[11],
         )
 
         monthly_data = {
             "January": (Jan_2025_filtered_Fixed, Jan_2025_filtered_Variable),
             "February": (Feb_2025_filtered_Fixed, Feb_2025_filtered_Variable),
             "March": (Mar_2025_filtered_Fixed, Mar_2025_filtered_Variable),
+            "April": (Apr_2025_filtered_Fixed, Apr_2025_filtered_Variable),
+            "May": (May_2025_filtered_Fixed, May_2025_filtered_Variable),
+            "June": (Jun_2025_filtered_Fixed, Jun_2025_filtered_Variable),
+            "July": (Jul_2025_filtered_Fixed, Jul_2025_filtered_Variable),
+            "August": (Aug_2025_filtered_Fixed, Aug_2025_filtered_Variable),
+            "September": (Sep_2025_filtered_Fixed, Sep_2025_filtered_Variable),
+            "October": (Oct_2025_filtered_Fixed, Oct_2025_filtered_Variable),
+            "November": (Nov_2025_filtered_Fixed, Nov_2025_filtered_Variable),
+            "December": (Dec_2025_filtered_Fixed, Dec_2025_filtered_Variable),
             # Add future months here
         }
         combined_L2_Fixed, combined_L2_Variable = YTD_L2(monthly_data)
@@ -239,13 +499,44 @@ if uploaded_file is not None:
                     Jan_2025_filtered_Fixed["Main"].sum(),
                     Feb_2025_filtered_Fixed["Main"].sum(),
                     Mar_2025_filtered_Fixed["Main"].sum(),
+                    Apr_2025_filtered_Fixed["Main"].sum(),
+                    May_2025_filtered_Fixed["Main"].sum(),
+                    Jun_2025_filtered_Fixed["Main"].sum(),
+                    Jul_2025_filtered_Fixed["Main"].sum(),
+                    Aug_2025_filtered_Fixed["Main"].sum(),
+                    Sep_2025_filtered_Fixed["Main"].sum(),
+                    Oct_2025_filtered_Fixed["Main"].sum(),
+                    Nov_2025_filtered_Fixed["Main"].sum(),
+                    Dec_2025_filtered_Fixed["Main"].sum(),
                 ],
                 "Fixed Cost Budget": [
                     Jan_2025_filtered_Fixed["1st Comparison"].sum(),
                     Feb_2025_filtered_Fixed["1st Comparison"].sum(),
-                    Mar_2025_filtered_Variable["1st Comparison"].sum(),
+                    Mar_2025_filtered_Fixed["1st Comparison"].sum(),
+                    Apr_2025_filtered_Fixed["1st Comparison"].sum(),
+                    May_2025_filtered_Fixed["1st Comparison"].sum(),
+                    Jun_2025_filtered_Fixed["1st Comparison"].sum(),
+                    Jul_2025_filtered_Fixed["1st Comparison"].sum(),
+                    Aug_2025_filtered_Fixed["1st Comparison"].sum(),
+                    Sep_2025_filtered_Fixed["1st Comparison"].sum(),
+                    Oct_2025_filtered_Fixed["1st Comparison"].sum(),
+                    Nov_2025_filtered_Fixed["1st Comparison"].sum(),
+                    Dec_2025_filtered_Fixed["1st Comparison"].sum(),
                 ],
-                "Month": ["January", "Feburary","March"],
+                "Month": [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                ],
             }
 
             colsss1, colsss2 = st.columns(2)
@@ -278,6 +569,7 @@ if uploaded_file is not None:
                         border=True,
                         delta=f"{Fixed_Cost_YTD_Delta_Percent:.2f}%",
                     )
+
                 with cols4:
                     fig = px.line(
                         data_L2,
@@ -326,11 +618,11 @@ if uploaded_file is not None:
                             value=f"£{filtered_df['Total Difference'].sum():,.2f}",
                             delta=f"{(((filtered_df['Total Budget'].sum()) - (filtered_df['Total Main'].sum()))/(filtered_df['Total Budget'].sum()))*100:.2f}%",
                         )
-                    Dataframes_ranked(filtered_df,"Order")
+                    Dataframes_ranked(filtered_df, "Order")
 
             with colswe12:
                 with st.container(height=500, border=False):
-                    fig = Levels_BarChart(filtered_df,'Order')
+                    fig = Levels_BarChart(filtered_df, "Order")
                     st.subheader("Cost by Order Bar Chart")
                     st.plotly_chart(fig, key="45hgfhe")
 
@@ -372,16 +664,23 @@ if uploaded_file is not None:
                             value=f"£{filtered_df['Total Main'].sum():,.2f}",
                         )
                     with coli33:
+                        budget_sum = filtered_df["Total Budget"].sum()
+                        main_sum = filtered_df["Total Main"].sum()
+                        if pd.notna(budget_sum) and budget_sum != 0:
+                            delta_value = ((budget_sum - main_sum) / budget_sum) * 100
+                            delta = f"{delta_value:.2f}%"
+                        else:
+                            delta = 0
                         st.metric(
                             label="Delta",
                             value=f"£{filtered_df['Total Difference'].sum():,.2f}",
-                            delta=f"{(((filtered_df['Total Budget'].sum()) - (filtered_df['Total Main'].sum()))/(filtered_df['Total Budget'].sum()))*100:.2f}%",
+                            delta=delta,
                         )
-                    Dataframes_ranked(filtered_df,"L3")
+                    Dataframes_ranked(filtered_df, "L3")
 
             with col32:
                 with st.container(height=500, border=False):
-                    fig = Levels_BarChart(filtered_df,'L3')
+                    fig = Levels_BarChart(filtered_df, "L3")
                     # Display the chart in Streamlit
                     st.subheader("Cost by L3 Bar Chart")
                     st.plotly_chart(fig, key="kfmmfem")
@@ -409,7 +708,7 @@ if uploaded_file is not None:
                         selected_category_L4,
                         selected_category_L3,
                         selected_category_Order_L2,
-                        combined_L4_Fixed
+                        combined_L4_Fixed,
                     )
                     coli31, coli32, coli33 = st.columns(
                         3, border=True, vertical_alignment="center"
@@ -425,16 +724,23 @@ if uploaded_file is not None:
                             value=f"£{filtered_df['Total Main'].sum():,.2f}",
                         )
                     with coli33:
+                        budget_sum = filtered_df["Total Budget"].sum()
+                        main_sum = filtered_df["Total Main"].sum()
+                        if pd.notna(budget_sum) and budget_sum != 0:
+                            delta_value = ((budget_sum - main_sum) / budget_sum) * 100
+                            delta = f"{delta_value:.2f}%"
+                        else:
+                            delta = 0
                         st.metric(
                             label="Delta",
                             value=f"£{filtered_df['Total Difference'].sum():,.2f}",
-                            delta=f"{(((filtered_df['Total Budget'].sum()) - (filtered_df['Total Main'].sum()))/(filtered_df['Total Budget'].sum()))*100:.2f}%",
+                            delta=delta,
                         )
-                    Dataframes_ranked(filtered_df,"L4")
+                    Dataframes_ranked(filtered_df, "L4")
 
             with col42:
                 with st.container(height=500, border=False):
-                    fig = Levels_BarChart(filtered_df,'L4')
+                    fig = Levels_BarChart(filtered_df, "L4")
                     # Display the chart in Streamlit
                     st.subheader("Cost by L4 Bar Chart")
                     st.plotly_chart(fig, key="efeef22efrvbg")
@@ -458,7 +764,13 @@ if uploaded_file is not None:
                         + list(new_data_41154["AccountAndDescpription"].unique()),
                         key="4r34rf34rf44gtrfghtertger",
                     )
-                    filtered_df = L5_YTD_Filtered(selected_category_Order_L2,selected_category_L3,selected_category_L4,selected_category_L5,combined_L5_Fixed)
+                    filtered_df = L5_YTD_Filtered(
+                        selected_category_Order_L2,
+                        selected_category_L3,
+                        selected_category_L4,
+                        selected_category_L5,
+                        combined_L5_Fixed,
+                    )
                     coli31, coli32, coli33 = st.columns(
                         3, border=True, vertical_alignment="center"
                     )
@@ -473,16 +785,23 @@ if uploaded_file is not None:
                             value=f"£{filtered_df['Total Main'].sum():,.2f}",
                         )
                     with coli33:
+                        budget_sum = filtered_df["Total Budget"].sum()
+                        main_sum = filtered_df["Total Main"].sum()
+                        if pd.notna(budget_sum) and budget_sum != 0:
+                            delta_value = ((budget_sum - main_sum) / budget_sum) * 100
+                            delta = f"{delta_value:.2f}%"
+                        else:
+                            delta = 0
                         st.metric(
                             label="Delta",
                             value=f"£{filtered_df['Total Difference'].sum():,.2f}",
-                            delta=f"{(((filtered_df['Total Budget'].sum()) - (filtered_df['Total Main'].sum()))/(filtered_df['Total Budget'].sum()))*100:.2f}%",
+                            delta=delta,
                         )
-                    Dataframes_ranked(filtered_df,'AccountAndDescpription')
+                    Dataframes_ranked(filtered_df, "AccountAndDescpription")
 
             with col52:
                 with st.container(height=500, border=False):
-                    fig = Levels_BarChart(filtered_df,'AccountAndDescpription')
+                    fig = Levels_BarChart(filtered_df, "AccountAndDescpription")
                     # Display the chart in Streamlit
                     st.subheader("Cost by Account Bar Chart")
                     st.plotly_chart(fig, key="435253wewew")
@@ -494,13 +813,45 @@ if uploaded_file is not None:
                     Jan_2025_filtered_Variable["Main"].sum(),
                     Feb_2025_filtered_Variable["Main"].sum(),
                     Mar_2025_filtered_Variable["Main"].sum(),
+                    Apr_2025_filtered_Variable["Main"].sum(),
+                    May_2025_filtered_Variable["Main"].sum(),
+                    Jun_2025_filtered_Variable["Main"].sum(),
+                    Jul_2025_filtered_Variable["Main"].sum(),
+                    Aug_2025_filtered_Variable["Main"].sum(),
+                    Sep_2025_filtered_Variable["Main"].sum(),
+                    Oct_2025_filtered_Variable["Main"].sum(),
+                    Nov_2025_filtered_Variable["Main"].sum(),
+                    Dec_2025_filtered_Variable["Main"].sum(),
                 ],
                 "Variable Cost Budget": [
                     Jan_2025_filtered_Variable["1st Comparison"].sum(),
                     Feb_2025_filtered_Variable["1st Comparison"].sum(),
                     Mar_2025_filtered_Variable["1st Comparison"].sum(),
+                    Apr_2025_filtered_Variable["1st Comparison"].sum(),
+                    May_2025_filtered_Variable["1st Comparison"].sum(),
+                    Jun_2025_filtered_Variable["1st Comparison"].sum(),
+                    Jul_2025_filtered_Variable["1st Comparison"].sum(),
+                    Aug_2025_filtered_Variable["1st Comparison"].sum(),
+                    Sep_2025_filtered_Variable["1st Comparison"].sum(),
+                    Oct_2025_filtered_Variable["1st Comparison"].sum(),
+                    Nov_2025_filtered_Variable["1st Comparison"].sum(),
+                    Dec_2025_filtered_Variable["1st Comparison"].sum(),
                 ],
-                "Month": ["January", "Feburary","March"]}
+                "Month": [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                ],
+            }
 
             colsss1, colsss2 = st.columns(2)
             with colsss1:
@@ -580,11 +931,11 @@ if uploaded_file is not None:
                             value=f"£{filtered_df['Total Difference'].sum():,.2f}",
                             delta=f"{(((filtered_df['Total Budget'].sum()) - (filtered_df['Total Main'].sum()))/(filtered_df['Total Budget'].sum()))*100:.2f}%",
                         )
-                    Dataframes_ranked(filtered_df,"Order")
+                    Dataframes_ranked(filtered_df, "Order")
 
             with colswe12:
                 with st.container(height=500, border=False):
-                    fig = Levels_BarChart(filtered_df,'Order')
+                    fig = Levels_BarChart(filtered_df, "Order")
                     st.subheader("Cost by Order Bar Chart")
                     st.plotly_chart(fig, key="45hgfhe")
 
@@ -626,16 +977,23 @@ if uploaded_file is not None:
                             value=f"£{filtered_df['Total Main'].sum():,.2f}",
                         )
                     with coli33:
+                        budget_sum = filtered_df["Total Budget"].sum()
+                        main_sum = filtered_df["Total Main"].sum()
+                        if pd.notna(budget_sum) and budget_sum != 0:
+                            delta_value = ((budget_sum - main_sum) / budget_sum) * 100
+                            delta = f"{delta_value:.2f}%"
+                        else:
+                            delta = 0
                         st.metric(
                             label="Delta",
                             value=f"£{filtered_df['Total Difference'].sum():,.2f}",
-                            delta=f"{(((filtered_df['Total Budget'].sum()) - (filtered_df['Total Main'].sum()))/(filtered_df['Total Budget'].sum()))*100:.2f}%",
+                            delta=delta,
                         )
-                    Dataframes_ranked(filtered_df,"L3")
+                    Dataframes_ranked(filtered_df, "L3")
 
             with col32:
                 with st.container(height=500, border=False):
-                    fig = Levels_BarChart(filtered_df,'L3')
+                    fig = Levels_BarChart(filtered_df, "L3")
                     # Display the chart in Streamlit
                     st.subheader("Cost by L3 Bar Chart")
                     st.plotly_chart(fig, key="kfmmfem")
@@ -663,7 +1021,7 @@ if uploaded_file is not None:
                         selected_category_L4,
                         selected_category_L3,
                         selected_category_Order_L2,
-                        combined_L4_Variable
+                        combined_L4_Variable,
                     )
                     coli31, coli32, coli33 = st.columns(
                         3, border=True, vertical_alignment="center"
@@ -679,16 +1037,23 @@ if uploaded_file is not None:
                             value=f"£{filtered_df['Total Main'].sum():,.2f}",
                         )
                     with coli33:
+                        budget_sum = filtered_df["Total Budget"].sum()
+                        main_sum = filtered_df["Total Main"].sum()
+                        if pd.notna(budget_sum) and budget_sum != 0:
+                            delta_value = ((budget_sum - main_sum) / budget_sum) * 100
+                            delta = f"{delta_value:.2f}%"
+                        else:
+                            delta = 0
                         st.metric(
                             label="Delta",
                             value=f"£{filtered_df['Total Difference'].sum():,.2f}",
-                            delta=f"{(((filtered_df['Total Budget'].sum()) - (filtered_df['Total Main'].sum()))/(filtered_df['Total Budget'].sum()))*100:.2f}%",
+                            delta=delta,
                         )
-                    Dataframes_ranked(filtered_df,"L4")
+                    Dataframes_ranked(filtered_df, "L4")
 
             with col42:
                 with st.container(height=500, border=False):
-                    fig = Levels_BarChart(filtered_df,'L4')
+                    fig = Levels_BarChart(filtered_df, "L4")
                     # Display the chart in Streamlit
                     st.subheader("Cost by L4 Bar Chart")
                     st.plotly_chart(fig, key="efeef22efrvbg")
@@ -712,7 +1077,13 @@ if uploaded_file is not None:
                         + list(new_data_41154["AccountAndDescpription"].unique()),
                         key="4r34rf34rf44gtrfghtertger",
                     )
-                    filtered_df = L5_YTD_Filtered(selected_category_Order_L2,selected_category_L3,selected_category_L4,selected_category_L5,combined_L5_Variable)
+                    filtered_df = L5_YTD_Filtered(
+                        selected_category_Order_L2,
+                        selected_category_L3,
+                        selected_category_L4,
+                        selected_category_L5,
+                        combined_L5_Variable,
+                    )
                     coli31, coli32, coli33 = st.columns(
                         3, border=True, vertical_alignment="center"
                     )
@@ -727,16 +1098,23 @@ if uploaded_file is not None:
                             value=f"£{filtered_df['Total Main'].sum():,.2f}",
                         )
                     with coli33:
+                        budget_sum = filtered_df["Total Budget"].sum()
+                        main_sum = filtered_df["Total Main"].sum()
+                        if pd.notna(budget_sum) and budget_sum != 0:
+                            delta_value = ((budget_sum - main_sum) / budget_sum) * 100
+                            delta = f"{delta_value:.2f}%"
+                        else:
+                            delta = 0
                         st.metric(
                             label="Delta",
                             value=f"£{filtered_df['Total Difference'].sum():,.2f}",
-                            delta=f"{(((filtered_df['Total Budget'].sum()) - (filtered_df['Total Main'].sum()))/(filtered_df['Total Budget'].sum()))*100:.2f}%",
+                            delta=delta,
                         )
-                    Dataframes_ranked(filtered_df,'AccountAndDescpription')
+                    Dataframes_ranked(filtered_df, "AccountAndDescpription")
 
             with col52:
                 with st.container(height=500, border=False):
-                    fig = Levels_BarChart(filtered_df,'AccountAndDescpription')
+                    fig = Levels_BarChart(filtered_df, "AccountAndDescpription")
                     # Display the chart in Streamlit
                     st.subheader("Cost by Account Bar Chart")
                     st.plotly_chart(fig, key="435253wewew")

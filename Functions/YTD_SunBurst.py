@@ -16,14 +16,24 @@ def YTD_SunBurst(*months):
         else:
             month_name = f"Month {i + 1}"  # Fallback for additional months without a predefined name
 
-        # Append fixed and variable costs for the current month
-        costs.append("Fixed Cost")
-        months_list.append(month_name)
-        values.append(month[month["Category"] == "Fixed Costs"]["Main"].sum())
+        if month.empty:
+            # Append fixed and variable costs for the current month
+            costs.append("Fixed Cost")
+            months_list.append(month_name)
+            values.append(0)
 
-        costs.append("Variable Cost")
-        months_list.append(month_name)
-        values.append(month[month["Category"] == "Variable Costs"]["Main"].sum())
+            costs.append("Variable Cost")
+            months_list.append(month_name)
+            values.append(0)
+        else:
+            # Append fixed and variable costs for the current month
+            costs.append("Fixed Cost")
+            months_list.append(month_name)
+            values.append(month[month["Category"] == "Fixed Costs"]["Main"].sum())
+
+            costs.append("Variable Cost")
+            months_list.append(month_name)
+            values.append(month[month["Category"] == "Variable Costs"]["Main"].sum())
 
     # Create the data dictionary dynamically
     data = {

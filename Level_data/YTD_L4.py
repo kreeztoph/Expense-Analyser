@@ -1,3 +1,4 @@
+import pandas as pd
 
 def YTD_L4(monthly_data):
     """
@@ -11,49 +12,50 @@ def YTD_L4(monthly_data):
         combined_L4_Fixed: Aggregated fixed data across all months.
         combined_L4_Variable: Aggregated variable data across all months.
     """
-    # Initialize empty dataframes for fixed and variable costs
     combined_L4_Fixed = None
     combined_L4_Variable = None
+    has_data = False
 
     for month, (fix_data, var_data) in monthly_data.items():
-        # Grouping and summing fixed and variable data for the month
-        fix_data = fix_data.groupby(['Order','L3','L4'])[
-            ["Main", "1st Comparison", "Var Comp&Main"]
-        ].sum()
-        var_data = var_data.groupby(['Order','L3','L4'])[
-            ["Main", "1st Comparison", "Var Comp&Main"]
-        ].sum()
+        # Skip if both are completely empty
+        if fix_data.empty and var_data.empty:
+            continue
 
-        # Add the current month's data to the combined dataframes
-        if combined_L4_Fixed is None:
-            combined_L4_Fixed = fix_data
-        else:
-            combined_L4_Fixed = combined_L4_Fixed.add(fix_data, fill_value=0)
+        has_data = True
 
-        if combined_L4_Variable is None:
-            combined_L4_Variable = var_data
-        else:
-            combined_L4_Variable = combined_L4_Variable.add(var_data, fill_value=0)
+        if not fix_data.empty:
+            fix_data = fix_data.groupby(['Order', 'L3', 'L4'])[
+                ["Main", "1st Comparison", "Var Comp&Main"]
+            ].sum()
+            combined_L4_Fixed = fix_data if combined_L4_Fixed is None else combined_L4_Fixed.add(fix_data, fill_value=0)
 
-    # Resetting indices and rounding
-    combined_L4_Fixed = combined_L4_Fixed.reset_index().round(2)
-    combined_L4_Variable = combined_L4_Variable.reset_index()
+        if not var_data.empty:
+            var_data = var_data.groupby(['Order', 'L3', 'L4'])[
+                ["Main", "1st Comparison", "Var Comp&Main"]
+            ].sum()
+            combined_L4_Variable = var_data if combined_L4_Variable is None else combined_L4_Variable.add(var_data, fill_value=0)
 
-    combined_L4_Fixed.columns = [
-        "Order",
-        "L3",
-        "L4",
-        "Total Main",
-        "Total Budget",
-        "Total Difference",
-    ]
-    combined_L4_Variable.columns = [
-        "Order",
-        "L3",
-        "L4",
-        "Total Main",
-        "Total Budget",
-        "Total Difference",
-    ]
+    # Define column names
+    column_names = ["Order", "L3", "L4", "Total Main", "Total Budget", "Total Difference"]
 
-    return combined_L4_Fixed, combined_L4_Variable
+    if not has_data:
+        # Return structured empty DataFrames if no data is found
+        return (
+            pd.DataFrame(columns=column_names),
+            pd.DataFrame(columns=column_names)
+        )
+
+    # Reset indices and format
+    if combined_L4_Fixed is not None:
+        combined_L4_Fixed = combined_L4_Fixed.reset_index().round(2)
+        combined_L4_Fixed.columns = column_names
+    else:
+        combined_L4_Fixed = pd.DataFrame(columns=column_names)
+
+    if combined_L4_Variable is not None:
+        combined_L4_Variable = combined_L4_Variable.reset_index().round(2)
+        combined_L4_Variable.columns = column_names
+    else:
+        combined_L4_Variable = pd.DataFrame(columns=column_names)
+
+    return combined_L4_Fixed.fillna(0), combined_L4_Variable.fillna(0)
