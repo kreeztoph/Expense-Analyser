@@ -33,6 +33,7 @@ from Months.July_2025_Fixed import July_2025_Fixed
 from Months.July_2025_Variable import July_2025_Variable
 from Months.August_2025_Fixed import August_2025_Fixed
 from Months.August_2025_Variable import August_2025_Variable
+from Months.November_2024_Fixed import November_2024_Fixed
 from Months.November_2024_Variable import November_2024_Variable
 from Months.October_2024_Fixed import October_2024_Fixed
 from Months.October_2024_Variable import October_2024_Variable
@@ -42,7 +43,7 @@ from Months.September_2025_Fixed import September_2025_Fixed
 from Months.September_2025_Variable import September_2025_Variable
 from Months.October_2025_Fixed import October_2025_Fixed
 from Months.October_2025_Variable import October_2025_Variable
-from Months.November_2025_Fixed import November_2024_Fixed
+from Months.November_2025_Fixed import November_2025_Fixed, November_2025_Fixed
 from Months.November_2025_Variable import November_2025_Variable
 from Months.December_2025_Fixed import December_2025_Fixed
 from Months.December_2025_Variable import December_2025_Variable
@@ -301,6 +302,93 @@ if uploaded_file is not None:
                 st.info(f"No data available fot this {month}.")
             else:
                 April_2025_Variable(Apr_2025)
+        elif (month == "May") & (year == "2025") & (data == "Fixed Costs"):
+            if May_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                May_2025_Fixed(May_2025)
+        elif (month == "May") & (year == "2025") & (data == "Variable Costs"):
+            if May_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                May_2025_Variable(May_2025)
+        elif (month == "June") & (year == "2025") & (data == "Fixed Costs"):
+            if Jun_2025.empty:
+                st.info("No data available fot this month.")
+            else:
+                June_2025_Fixed(Jun_2025)
+
+        elif (month == "June") & (year == "2025") & (data == "Variable Costs"):
+            if Jun_2025.empty:
+                st.info("No data available for this month.")
+            else:
+                June_2025_Variable(Jun_2025)
+
+        elif (month == "July") & (year == "2025") & (data == "Fixed Costs"):
+            if Jul_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                July_2025_Fixed(Jul_2025)
+
+        elif (month == "July") & (year == "2025") & (data == "Variable Costs"):
+            if Jul_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                July_2025_Variable(Jul_2025)
+        elif (month == "August") & (year == "2025") & (data == "Fixed Costs"):
+            if Aug_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                August_2025_Fixed(Aug_2025)
+        elif (month == "August") & (year == "2025") & (data == "Variable Costs"):
+            if Aug_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                August_2025_Variable(Aug_2025)
+
+        elif (month == "September") & (year == "2025") & (data == "Fixed Costs"):
+            if Sep_2025.empty:
+                st.info("No data available fot this month.")
+            else:
+                September_2025_Fixed(Sep_2025)
+
+        elif (month == "September") & (year == "2025") & (data == "Variable Costs"):
+            if Sep_2025.empty:
+                st.info("No data available for this month.")
+            else:
+                September_2025_Variable(Sep_2025)
+        elif (month == "October") & (year == "2025") & (data == "Fixed Costs"):
+            if Oct_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                October_2025_Fixed(Oct_2025)
+
+        elif (month == "October") & (year == "2025") & (data == "Variable Costs"):
+            if Oct_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                October_2025_Variable(Oct_2025)
+        elif (month == "November") & (year == "2025") & (data == "Fixed Costs"):
+            if Nov_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                November_2025_Fixed(Nov_2025)
+        elif (month == "November") & (year == "2025") & (data == "Variable Costs"):
+            if Nov_2025.empty:
+                st.info(f"No data available fot this {month}.")
+            else:
+                November_2025_Variable(Nov_2025)
+        elif (month == "December") & (year == "2025") & (data == "Fixed Costs"):
+            if Dec_2025.empty:
+                st.info("No data available fot this month.")
+            else:
+                December_2025_Fixed(Dec_2025)
+
+        elif (month == "December") & (year == "2025") & (data == "Variable Costs"):
+            if Dec_2025.empty:
+                st.info("No data available for this month.")
+            else:
+                December_2025_Variable(Dec_2025)
         else:
             st.info("No data for the month selected")
 
