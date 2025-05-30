@@ -5,29 +5,29 @@ import plotly.graph_objects as go
 from Functions.Color_code import color_code
 
 
-def November_2025_Fixed(data):
+def November_2024_Fixed(data):
     data_complete = data.groupby(["Category"]).sum(list).reset_index()
-    data_2025_Fixed_Cost_Data = data[(data["Category"] == "Fixed Costs")]
+    data_2024_Fixed_Cost_Data = data[(data["Category"] == "Fixed Costs")]
     L1_Grouped = (
-        data_2025_Fixed_Cost_Data.groupby(["Category"]).sum(list).reset_index()
+        data_2024_Fixed_Cost_Data.groupby(["Category"]).sum(list).reset_index()
     )
     L2_Grouped = (
-        data_2025_Fixed_Cost_Data.groupby(["Category", "Order"])
+        data_2024_Fixed_Cost_Data.groupby(["Category", "Order"])
         .sum(list)
         .reset_index()
     )
     L3_Grouped = (
-        data_2025_Fixed_Cost_Data.groupby(["Category", "Order", "L3"])
+        data_2024_Fixed_Cost_Data.groupby(["Category", "Order", "L3"])
         .sum(list)
         .reset_index()
     )
     L4_Grouped = (
-        data_2025_Fixed_Cost_Data.groupby(["Category", "Order", "L3", "L4"])
+        data_2024_Fixed_Cost_Data.groupby(["Category", "Order", "L3", "L4"])
         .sum(list)
         .reset_index()
     )
     L5_Grouped = (
-        data_2025_Fixed_Cost_Data.groupby(
+        data_2024_Fixed_Cost_Data.groupby(
             ["Category", "Order", "L3", "L4", "AccountAndDescpription"]
         )
         .sum(list)
