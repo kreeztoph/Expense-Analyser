@@ -300,8 +300,8 @@ def January_2025_Fixed(data):
                     label="Spent", value=f"£{filtered_df['Spent'].sum():,.2f}"
                 )
             with coli33:
-                budget_sum = filtered_df['Total Budget'].sum()
-                main_sum = filtered_df['Total Main'].sum()
+                budget_sum = filtered_df['Budget'].sum()
+                main_sum = filtered_df['Spent'].sum()
                 if pd.notna(budget_sum) and budget_sum != 0:
                     delta_value = ((budget_sum - main_sum) / budget_sum) * 100
                     delta = f"{delta_value:.2f}%"
@@ -424,8 +424,8 @@ def January_2025_Fixed(data):
                     label="Spent", value=f"£{filtered_df['Spent'].sum():,.2f}"
                 )
             with coli33:
-                budget_sum = filtered_df['Total Budget'].sum()
-                main_sum = filtered_df['Total Main'].sum()
+                budget_sum = filtered_df['Budget'].sum()
+                main_sum = filtered_df['Spent'].sum()
                 if pd.notna(budget_sum) and budget_sum != 0:
                     delta_value = ((budget_sum - main_sum) / budget_sum) * 100
                     delta = f"{delta_value:.2f}%"
@@ -554,8 +554,8 @@ def January_2025_Fixed(data):
                     label="Spent", value=f"£{filtered_df['Spent'].sum():,.2f}"
                 )
             with coli33:
-                budget_sum = filtered_df['Total Budget'].sum()
-                main_sum = filtered_df['Total Main'].sum()
+                budget_sum = filtered_df['Budget'].sum()
+                main_sum = filtered_df['Spent'].sum()
                 if pd.notna(budget_sum) and budget_sum != 0:
                     delta_value = ((budget_sum - main_sum) / budget_sum) * 100
                     delta = f"{delta_value:.2f}%"
